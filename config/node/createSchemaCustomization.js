@@ -19,7 +19,7 @@ module.exports = ({ actions }) => {
         cover: String,
         date: Date!,
         path: String!,
-        tags: [String]!,
+        tags: [String],
         title: String!,
         seoDescription: String,
         seoImage: String,

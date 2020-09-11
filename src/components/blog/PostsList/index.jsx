@@ -1,13 +1,13 @@
 import React from "react"
 import PropTypes from "prop-types"
 
-import Entry from "./posts_list/entry"
+import Entry from "./Entry"
 
-import styles from "./posts_list.module.scss"
+import styles from "./index.module.scss"
 
-const renderItem = ({ author, date, intro, path, title }, index) => (
+const renderItem = ({ author, date, intro, path, tags, title }, index) => (
   <li key={index} className={styles.item}>
-    <Entry {...{ author, date, intro, path, title }} />
+    <Entry {...{ author, date, intro, path, tags, title }} />
   </li>
 )
 
@@ -22,6 +22,7 @@ BlogPostsList.propTypes = {
       date: PropTypes.instanceOf(Date).isRequired,
       intro: PropTypes.string.isRequired,
       path: PropTypes.string.isRequired,
+      tags: PropTypes.arrayOf(PropTypes.string),
       title: PropTypes.string.isRequired,
     })
   ).isRequired,
