@@ -36,10 +36,14 @@ export default () => {
   } = useStaticQuery(query)
   const posts = nodes.map((node) => {
     const { frontmatter } = node
-    const { author, date, intro, path, tags, title } = frontmatter
+    const { author, date, intro, path, title } = frontmatter
 
-    return { author, date: new Date(date), intro, path, tags, title }
+    return { author, date: new Date(date), intro, path, title }
   })
+  const tags = nodes
+    .reduce((acc, node) => acc.concat(node.frontmatter.tags), [])
+    .sort()
+    .reduce((acc, tag) => (acc.includes(tag) ? acc : acc.concat([tag])))
 
   return (
     <PostsListPage
@@ -53,6 +57,7 @@ export default () => {
           `,
           title: "Inside Subvisual",
         },
+        tags,
       }}
     />
   )

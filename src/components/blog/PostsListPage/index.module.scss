@@ -1,14 +1,27 @@
 @import "common/breakpoints";
 
 .root {
+  display: grid;
+  grid-column-gap: 20px;
+  grid-template-columns: repeat(14, 1fr);
+  max-width: 1440px;
   padding: 28px 20px 56px;
+  margin: 0 auto;
 
   @include media(">=desktop") {
+    grid-column-gap: 28px;
     padding: 28px 28px 56px;
   }
 }
 
-.content {
+.filters {
+  grid-column: 1 / span 4;
+  grid-row: 1 / span 1;
+}
+
+.posts {
+  grid-column: 5 / span 10;
+  grid-row: 1 / span 1;
   width: 100%;
   max-width: 1184px;
   margin: 0 auto;
@@ -21,9 +34,4 @@
   @include media(">=desktop") {
     margin: 0 auto 112px;
   }
-}
-
-.posts {
-  max-width: 980px;
-  margin: 0 auto;
 }

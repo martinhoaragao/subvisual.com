@@ -2,7 +2,6 @@ import React from "react"
 import PropTypes from "prop-types"
 import { Link } from "gatsby"
 import dateFormat from "dateformat"
-import _isEmpty from "lodash/isEmpty"
 
 import styles from "./index.module.scss"
 
@@ -16,21 +15,7 @@ const renderAuthor = ({ className, key, name }) => {
   )
 }
 
-function renderTags({ tags }) {
-  if (_isEmpty(tags)) return null
-
-  return (
-    <ul className={styles.tags}>
-      {tags.map((tag) => (
-        <li key={tag} className={styles.tag}>
-          <Link to={`/blog/tag/${tag}`}>{tag}</Link>
-        </li>
-      ))}
-    </ul>
-  )
-}
-
-const Entry = ({ author, date, intro, path, tags, title }) => {
+const Entry = ({ author, date, intro, path, title }) => {
   const formattedDate = dateFormat(date, "mmmm d, yyyy")
   const to = path.startsWith("/") ? `/blog${path}` : `/blog/${path}`
 
@@ -48,7 +33,6 @@ const Entry = ({ author, date, intro, path, tags, title }) => {
         {renderAuthor({ className: styles.author, ...author })}
         <span className={styles.date}>On {formattedDate}</span>
       </div>
-      {renderTags({ tags })}
     </div>
   )
 }
@@ -61,7 +45,6 @@ Entry.propTypes = {
   date: PropTypes.instanceOf(Date).isRequired,
   intro: PropTypes.string.isRequired,
   path: PropTypes.string.isRequired,
-  tags: PropTypes.arrayOf(PropTypes.string),
   title: PropTypes.string.isRequired,
 }
 
