@@ -1,4 +1,6 @@
 import React from "react"
+import { Link } from "gatsby"
+import _capitalize from "lodash/capitalize"
 import _isEmpty from "lodash/isEmpty"
 
 import Layout from "~/src/components/layout"
@@ -8,10 +10,25 @@ import Title from "~/src/components/blog/title"
 
 import styles from "./index.module.scss"
 
+function renderFilter(tag) {
+  return (
+    <li key={tag} className={styles.filtersListItem}>
+      <Link to={`/blog/tag/${tag}`}>{_capitalize(tag)}</Link>
+    </li>
+  )
+}
+
 function renderFilters({ tags }) {
   if (_isEmpty(tags)) return null
 
-  return <span>Filter by</span>
+  return (
+    <>
+      <div className={styles.filtersTitle}>
+        <span className={styles.filtersTitleText}>Filter by:</span>
+      </div>
+      <ul className={styles.filtersList}>{tags.map(renderFilter)}</ul>
+    </>
+  )
 }
 
 function renderTitle({ title }) {

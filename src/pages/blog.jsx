@@ -43,7 +43,8 @@ export default () => {
   const tags = nodes
     .reduce((acc, node) => acc.concat(node.frontmatter.tags), [])
     .sort()
-    .reduce((acc, tag) => (acc.includes(tag) ? acc : acc.concat([tag])))
+    .reduce((acc, tag) => (acc.includes(tag) ? acc : acc.concat([tag])), [])
+    .filter((tag) => tag)
 
   return (
     <PostsListPage
