@@ -21,6 +21,7 @@ export const query = graphql`
           date
           intro
           path
+          tags
           title
         }
       }
@@ -39,6 +40,11 @@ export default ({ data, pageContext }) => {
 
     return { author, date: new Date(date), intro, path, title }
   })
+  const tags = nodes
+    .reduce((acc, node) => acc.concat(node.frontmatter.tags), [])
+    .sort()
+    .reduce((acc, item) => (acc.includes(item) ? acc : acc.concat([item])), [])
+    .filter((item) => item)
   const title = `Posts about ${tag}`
 
   return (
@@ -52,7 +58,7 @@ export default ({ data, pageContext }) => {
       `,
           title,
         },
-        tag,
+        tags,
         title,
       }}
     />
