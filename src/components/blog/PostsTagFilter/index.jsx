@@ -1,7 +1,6 @@
 import React from "react"
-import { Link } from "gatsby"
+import { Link, graphql, useStaticQuery } from "gatsby"
 import _capitalize from "lodash/capitalize"
-import _isEmpty from "lodash/isEmpty"
 
 import styles from "./index.module.scss"
 
@@ -13,8 +12,14 @@ function renderFilter(tag) {
   )
 }
 
-export default ({ className, tags }) => {
-  if (_isEmpty(tags)) return null
+export default ({ className }) => {
+  const data = useStaticQuery(graphql`
+    {
+      allMarkdownRemark {
+        distinct(field: frontmatter___tags)
+      }
+    }
+  `)
 
   return (
     <div className={className}>
@@ -25,7 +30,7 @@ export default ({ className, tags }) => {
         <li className={styles.filter}>
           <Link to="/blog/">All</Link>
         </li>
-        {tags.map(renderFilter)}
+        {data.allMarkdownRemark.distinct.map(renderFilter)}
       </ul>
     </div>
   )

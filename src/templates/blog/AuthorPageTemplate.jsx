@@ -56,6 +56,7 @@ export default ({ data }) => {
           description: authorBio,
           title,
         },
+        showTagFilter: false,
         title,
       }}
     />
